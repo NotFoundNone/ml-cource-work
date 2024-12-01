@@ -4,20 +4,24 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 # Пример загрузки датасета (замените на свой путь)
-data = pd.read_csv('../normalize/data/transformed_student_performance.csv')
+data = pd.read_csv('../normalize/norm.csv')
 
 # Разделим данные на признаки и целевую переменную
 X = data.drop('Exam_Score', axis=1).values  # Признаки (X)
 y = data['Exam_Score'].values  # Целевая переменная (y)
 
-scaler = StandardScaler()
-X = scaler.fit_transform(X)
-
+# scaler = StandardScaler()
+# X = scaler.fit_transform(X)
+#
 # Преобразуем X_normalized в DataFrame для удобства
 normalized_data = pd.DataFrame(X, columns=data.drop('Exam_Score', axis=1).columns)
 
-# Запись нормализованных данных в CSV файл
-normalized_data.to_csv('normalized_student_performance.csv', index=False)
+
+normalized_data.fillna(0, inplace=True)   # Заменяет NaN на 0
+print(normalized_data.isna().sum())
+#
+# # Запись нормализованных данных в CSV файл
+# normalized_data.to_csv('normalized_student_performance.csv', index=False)
 
 # Добавляем единичный столбец для учёта смещения (bias) в уравнении
 X = np.c_[np.ones(X.shape[0]), X]

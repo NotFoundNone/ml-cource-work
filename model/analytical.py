@@ -24,7 +24,7 @@
 #
 import numpy as np
 import csv
-
+#
 # Маппинг для категориальных данных
 category_mappings = {
     'Low': 0, 'Medium': 1, 'High': 2,
@@ -65,7 +65,7 @@ def load_data_from_csv(file_path):
     return data
 
 # Загрузка данных из CSV файла
-file_path = '../normalize/data/StudentPerformanceFactors.csv'  # Путь к вашему CSV файлу
+file_path = '../normalize/norm.csv'  # Путь к вашему CSV файлу
 data = load_data_from_csv(file_path)
 
 # Преобразуем данные в numpy массив

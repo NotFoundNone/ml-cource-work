@@ -23,17 +23,11 @@ def min_max_normalization(df, exclude_columns=None):
 
     return df, min_max_values
 
-# # Пути к файлам
-# project_root = os.path.abspath(os.path.dirname(__file__))
-# data_file = os.path.join(project_root, 'data', 'data_cleaned.csv')
-# output_file = os.path.join(project_root, 'data', 'data_minmax.csv')
-# min_max_file = os.path.join(project_root, 'data', 'min_max_values.csv')
-
 # Чтение данных
-data = pd.read_csv('../normalize/data/transformed_student_performance.csv')
+data = pd.read_csv('proverka.csv')
 
 # Столбец, который не должен быть нормализован
-exclude_columns = ['price']
+exclude_columns = ['Exam_Score']
 
 # Нормализация данных
 normalized_data, min_max_values = min_max_normalization(data.copy(), exclude_columns=exclude_columns)
