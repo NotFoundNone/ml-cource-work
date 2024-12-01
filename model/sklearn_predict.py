@@ -1,16 +1,14 @@
 import pandas as pd
-from sklearn_predict.model_selection import train_test_split
-from sklearn_predict.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder
-from sklearn_predict.impute import SimpleImputer
-from sklearn_predict.compose import ColumnTransformer
-from sklearn_predict.pipeline import Pipeline
-from sklearn_predict.ensemble import RandomForestRegressor
-from sklearn_predict.metrics import mean_absolute_error, mean_squared_error, r2_score
-from sklearn_predict.compose import ColumnTransformer
-from sklearn_predict.preprocessing import FunctionTransformer
+from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.impute import SimpleImputer
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.model_selection import train_test_split
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 # Загрузка данных
-data = pd.read_csv('../StudentPerformanceModel/normalize/data/StudentPerformanceFactors.csv')
+data = pd.read_csv('../normalize/data/StudentPerformanceFactors.csv')
 
 # Разделение на признаки (X) и целевую переменную (y)
 X = data.drop('Exam_Score', axis=1)
@@ -69,25 +67,25 @@ print(f"MSE: {mse}")
 print(f"R^2: {r2}")
 
 new_data = pd.DataFrame({
-    'Hours_Studied': [16],
-    'Attendance': [60],
+    'Hours_Studied': [23],
+    'Attendance': [84],
     'Parental_Involvement': ['Low'],
-    'Access_to_Resources': ['Medium'],
-    'Extracurricular_Activities': ['Yes'],
-    'Sleep_Hours': [8],
-    'Previous_Scores': [66],
+    'Access_to_Resources': ['High'],
+    'Extracurricular_Activities': ['No'],
+    'Sleep_Hours': [7],
+    'Previous_Scores': [73],
     'Motivation_Level': ['Low'],
     'Internet_Access': ['Yes'],
-    'Tutoring_Sessions': [1],
-    'Family_Income': ['High'],
-    'Teacher_Quality': ['High'],
-    'School_Type': ['Private'],
-    'Peer_Influence': ['Neutral'],
-    'Physical_Activity': [2],
-    'Learning_Disabilities': ['Yes'],
+    'Tutoring_Sessions': [0],
+    'Family_Income': ['Low'],
+    'Teacher_Quality': ['Medium'],
+    'School_Type': ['Public'],
+    'Peer_Influence': ['Positive'],
+    'Physical_Activity': [3],
+    'Learning_Disabilities': ['No'],
     'Parental_Education_Level': ['High School'],
-    'Distance_from_Home': ['Moderate'],
-    'Gender': ['Female']
+    'Distance_from_Home': ['Near'],
+    'Gender': ['Male']
 })
 
 # Прогнозирование с использованием ранее обученной модели

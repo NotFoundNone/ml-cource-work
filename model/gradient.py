@@ -4,24 +4,22 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 # Пример загрузки датасета (замените на свой путь)
-data = pd.read_csv('../normalize/norm.csv')
+data = pd.read_csv('../normalize/data/normalized_student_performance.csv')
 
 # Разделим данные на признаки и целевую переменную
 X = data.drop('Exam_Score', axis=1).values  # Признаки (X)
 y = data['Exam_Score'].values  # Целевая переменная (y)
 
-# scaler = StandardScaler()
-# X = scaler.fit_transform(X)
-#
-# Преобразуем X_normalized в DataFrame для удобства
-normalized_data = pd.DataFrame(X, columns=data.drop('Exam_Score', axis=1).columns)
 
-
-normalized_data.fillna(0, inplace=True)   # Заменяет NaN на 0
-print(normalized_data.isna().sum())
+# #TODO: Вынести в другой файл
 #
-# # Запись нормализованных данных в CSV файл
-# normalized_data.to_csv('normalized_student_performance.csv', index=False)
+# # Преобразуем X_normalized в DataFrame для удобства
+# normalized_data = pd.DataFrame(X, columns=data.drop('Exam_Score', axis=1).columns)
+#
+# normalized_data.fillna(0, inplace=True)   # Заменяет NaN на 0
+# print(normalized_data.isna().sum())
+#
+#
 
 # Добавляем единичный столбец для учёта смещения (bias) в уравнении
 X = np.c_[np.ones(X.shape[0]), X]
@@ -45,8 +43,6 @@ def compute_cost(X, y, theta):
     cost = (1 / (2 * m)) * np.sum((predictions - y) ** 2)
     return cost
 
-
-# Градиентный спуск
 # Градиентный спуск
 def gradient_descent(X, y, theta, alpha, iterations):
     m = len(y)
@@ -93,7 +89,7 @@ for alpha in alphas:
     else:
         print(f"Прерывание на alpha={alpha} из-за больших градиентов.")
 
-np.savetxt('optimized_theta.csv', optimized_theta, delimiter=',', header='theta', comments='')
+np.savetxt('../normalize/data/theta/optimized_theta.csv', optimized_theta, delimiter=',', comments='')
 
 # Настройки графика
 plt.xlabel('Number of iterations')

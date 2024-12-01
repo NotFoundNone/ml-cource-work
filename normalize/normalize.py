@@ -1,50 +1,90 @@
 import pandas as pd
-import os
 
-# Функция для Мин-Макс нормализации
-def min_max_normalization(df, exclude_columns=None):
+# Функция для стандартизации
+def standardization(df, exclude_columns=None):
     if exclude_columns is None:
         exclude_columns = []
 
-    # Словарь для хранения минимальных и максимальных значений
-    min_max_values = {}
+    # Словарь для хранения средних значений и стандартных отклонений
+    mean_std_values = {}
 
-    # Применение нормализации ко всем столбцам, кроме исключенных
+    # Применение стандартизации ко всем столбцам, кроме исключенных
     for column in df.columns:
         if column not in exclude_columns:
-            min_val = df[column].min()
-            max_val = df[column].max()
+            mean_val = df[column].mean()  # Среднее значение
+            std_val = df[column].std()    # Стандартное отклонение
 
-            # Сохраняем минимальное и максимальное значения
-            min_max_values[column] = {'min': min_val, 'max': max_val}
+            # Сохраняем среднее и стандартное отклонение
+            mean_std_values[column] = {'mean': mean_val, 'std': std_val}
 
-            # Нормализация столбца
-            df[column] = (df[column] - min_val) / (max_val - min_val)
+            # Стандартизация столбца
+            df[column] = (df[column] - mean_val) / std_val
 
-    return df, min_max_values
+    return df, mean_std_values
 
 # Чтение данных
-data = pd.read_csv('proverka.csv')
+data = pd.read_csv('./data/standartized_student_performance.csv')
 
-# Столбец, который не должен быть нормализован
+# Столбец, который не должен быть стандартизован
 exclude_columns = ['Exam_Score']
 
-# Нормализация данных
-normalized_data, min_max_values = min_max_normalization(data.copy(), exclude_columns=exclude_columns)
+# Стандартизация данных
+standardized_data, mean_std_values = standardization(data.copy(), exclude_columns=exclude_columns)
 
-# Сохранение нормализованных данных в новый файл
-normalized_data.to_csv("norm.csv", index=False)
+# Сохранение стандартизированных данных в новый файл
+standardized_data.to_csv("./data/normalized_student_performance.csv", index=False)
 
-# Сохранение минимальных и максимальных значений для каждого признака
-min_max_df = pd.DataFrame(min_max_values).T
+# Сохранение средних значений и стандартных отклонений для каждого признака
+mean_std_df = pd.DataFrame(mean_std_values).T
 
 # Добавляем индекс как отдельный столбец, чтобы он записался в файл
-min_max_df.reset_index(inplace=True)
-min_max_df.rename(columns={'index': 'parameter'}, inplace=True)
+mean_std_df.reset_index(inplace=True)
+mean_std_df.rename(columns={'index': 'parameter'}, inplace=True)
 
-# # Сохраняем файл с корректным заголовком
-# min_max_df.to_csv(min_max_file, index=False)
+# Сохранение значений среднего и стандартного отклонения
+mean_std_df.to_csv('./data/util/mean_std_values.csv', index=False)
+
+
+# import pandas as pd
+# import os
 #
-# print("Нормализация завершена и сохранена в файлы:")
-# print(f"Нормализованные данные: {output_file}")
-# print(f"Минимальные и максимальные значения для нормализации: {min_max_file}")
+# # Функция для Мин-Макс нормализации
+# def min_max_normalization(df, exclude_columns=None):
+#     if exclude_columns is None:
+#         exclude_columns = []
+#
+#     # Словарь для хранения минимальных и максимальных значений
+#     min_max_values = {}
+#
+#     # Применение нормализации ко всем столбцам, кроме исключенных
+#     for column in df.columns:
+#         if column not in exclude_columns:
+#             min_val = df[column].min()
+#             max_val = df[column].max()
+#
+#             # Сохраняем минимальное и максимальное значения
+#             min_max_values[column] = {'min': min_val, 'max': max_val}
+#
+#             # Нормализация столбца
+#             df[column] = (df[column] - min_val) / (max_val - min_val)
+#
+#     return df, min_max_values
+#
+# # Чтение данных
+# data = pd.read_csv('proverka.csv')
+#
+# # Столбец, который не должен быть нормализован
+# exclude_columns = ['Exam_Score']
+#
+# # Нормализация данных
+# normalized_data, min_max_values = min_max_normalization(data.copy(), exclude_columns=exclude_columns)
+#
+# # Сохранение нормализованных данных в новый файл
+# normalized_data.to_csv("norm.csv", index=False)
+#
+# # Сохранение минимальных и максимальных значений для каждого признака
+# min_max_df = pd.DataFrame(min_max_values).T
+#
+# # Добавляем индекс как отдельный столбец, чтобы он записался в файл
+# min_max_df.reset_index(inplace=True)
+# min_max_df.rename(columns={'index': 'parameter'}, inplace=True)
