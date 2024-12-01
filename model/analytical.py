@@ -1,3 +1,25 @@
+import numpy as np
+
+import pandas as pd
+
+data = pd.read_csv('../normalize/data/normalized_student_performance.csv')
+
+# Разделим данные на признаки и целевую переменную
+X = data.drop('Exam_Score', axis=1).values  # Признаки (X)
+y = data['Exam_Score'].values  # Целевая переменная (y)
+
+# Добавляем столбец единиц для смещения (перехвата)
+X = np.column_stack((np.ones(X.shape[0]), X))
+
+X_T = X.T
+
+theta = np.linalg.inv(X_T.dot(X)).dot(X_T).dot(y)
+
+print("Коэффициенты модели:", theta)
+
+np.savetxt('../normalize/data/theta/theta_analytic.csv', theta, delimiter=',', comments='')
+
+
 # import numpy as np
 # import os
 #
@@ -22,29 +44,3 @@
 # np.savetxt('theta_analytic.csv', theta, delimiter=',', header='theta', comments='')
 # print(theta)
 #
-import numpy as np
-
-import pandas as pd
-
-data = pd.read_csv('../normalize/data/normalized_student_performance.csv')
-
-# Разделим данные на признаки и целевую переменную
-X = data.drop('Exam_Score', axis=1).values  # Признаки (X)
-y = data['Exam_Score'].values  # Целевая переменная (y)
-
-# #TODO: Вынести в другой файл
-#
-# normalized_data = pd.DataFrame(X, columns=data.drop('Exam_Score', axis=1).columns)
-#
-# normalized_data.fillna(0, inplace=True)   # Заменяет NaN на 0
-# print(normalized_data.isna().sum())
-
-# Добавляем столбец единиц для смещения (перехвата)
-X = np.column_stack((np.ones(X.shape[0]), X))
-
-X_T = X.T
-theta = np.linalg.inv(X_T.dot(X)).dot(X_T).dot(y)
-
-print("Коэффициенты модели:", theta)
-
-np.savetxt('../normalize/data/theta/theta_analytic.csv', theta, delimiter=',', comments='')

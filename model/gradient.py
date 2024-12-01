@@ -10,17 +10,6 @@ data = pd.read_csv('../normalize/data/normalized_student_performance.csv')
 X = data.drop('Exam_Score', axis=1).values  # Признаки (X)
 y = data['Exam_Score'].values  # Целевая переменная (y)
 
-
-# #TODO: Вынести в другой файл
-#
-# # Преобразуем X_normalized в DataFrame для удобства
-# normalized_data = pd.DataFrame(X, columns=data.drop('Exam_Score', axis=1).columns)
-#
-# normalized_data.fillna(0, inplace=True)   # Заменяет NaN на 0
-# print(normalized_data.isna().sum())
-#
-#
-
 # Добавляем единичный столбец для учёта смещения (bias) в уравнении
 X = np.c_[np.ones(X.shape[0]), X]
 
