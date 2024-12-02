@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 # Пример загрузки датасета (замените на свой путь)
 data = pd.read_csv('../normalize/data/normalized_student_performance.csv')

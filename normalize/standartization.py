@@ -30,15 +30,15 @@ def transform_categories(data, mappings):
         transformed_data.append(transformed_row)
     return np.array(transformed_data)
 
-# Загрузка данных из CSV
-data = pd.read_csv('data/StudentPerformanceFactors.csv')
-
-# Преобразуем данные в numpy массив
-data_transformed = transform_categories(data.values, category_mappings)
-
-normalized_data = pd.DataFrame(data_transformed, columns=data.columns)
-
-normalized_data.fillna(0, inplace=True)   # Заменяет NaN на 0
-print(normalized_data.isna().sum())
-
-normalized_data.to_csv('./data/standartized_student_performance.csv', index=False)
+# # Загрузка данных из CSV
+# data = pd.read_csv('data/StudentPerformanceFactors.csv')
+#
+# # Преобразуем данные в numpy массив
+# data_transformed = transform_categories(data.values, category_mappings)
+#
+# normalized_data = pd.DataFrame(data_transformed, columns=data.columns)
+#
+# normalized_data.fillna(0, inplace=True)   # Заменяет NaN на 0
+# print(normalized_data.isna().sum())
+#
+# normalized_data.to_csv('./data/standartized_student_performance.csv', index=False)

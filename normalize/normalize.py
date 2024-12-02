@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Функция для стандартизации
-def standardization(df, exclude_columns=None):
+def normalization_func(df, exclude_columns=None):
     if exclude_columns is None:
         exclude_columns = []
 
@@ -22,27 +22,27 @@ def standardization(df, exclude_columns=None):
 
     return df, mean_std_values
 
-# Чтение данных
-data = pd.read_csv('./data/standartized_student_performance.csv')
-
-# Столбец, который не должен быть стандартизован
-exclude_columns = ['Exam_Score']
-
-# Стандартизация данных
-standardized_data, mean_std_values = standardization(data.copy(), exclude_columns=exclude_columns)
-
-# Сохранение стандартизированных данных в новый файл
-standardized_data.to_csv("./data/normalized_student_performance.csv", index=False)
-
-# Сохранение средних значений и стандартных отклонений для каждого признака
-mean_std_df = pd.DataFrame(mean_std_values).T
-
-# Добавляем индекс как отдельный столбец, чтобы он записался в файл
-mean_std_df.reset_index(inplace=True)
-mean_std_df.rename(columns={'index': 'parameter'}, inplace=True)
-
-# Сохранение значений среднего и стандартного отклонения
-mean_std_df.to_csv('./data/util/mean_std_values.csv', index=False)
+# # Чтение данных
+# data = pd.read_csv('./data/standartized_student_performance.csv')
+#
+# # Столбец, который не должен быть стандартизован
+# exclude_columns = ['Exam_Score']
+#
+# # Стандартизация данных
+# standardized_data, mean_std_values = normalization_func(data.copy(), exclude_columns=exclude_columns)
+#
+# # Сохранение стандартизированных данных в новый файл
+# standardized_data.to_csv("./data/normalized_student_performance.csv", index=False)
+#
+# # Сохранение средних значений и стандартных отклонений для каждого признака
+# mean_std_df = pd.DataFrame(mean_std_values).T
+#
+# # Добавляем индекс как отдельный столбец, чтобы он записался в файл
+# mean_std_df.reset_index(inplace=True)
+# mean_std_df.rename(columns={'index': 'parameter'}, inplace=True)
+#
+# # Сохранение значений среднего и стандартного отклонения
+# mean_std_df.to_csv('./data/util/mean_std_values.csv', index=False)
 
 
 # import pandas as pd

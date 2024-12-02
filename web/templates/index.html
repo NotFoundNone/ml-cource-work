@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Предсказание модели</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+<div class="container">
+    <h1>Форма ввода для предсказания модели</h1>
+    <form action="/predict" method="POST">
+        <div class="form-group">
+            <label for="Hours_Studied">Часы учебы:</label>
+            <input type="number" name="Hours_Studied" value="{{ request.form['Hours_Studied'] if request.form.get('Hours_Studied') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Attendance">Посещаемость:</label>
+            <input type="number" name="Attendance" value="{{ request.form['Attendance'] if request.form.get('Attendance') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Parental_Involvement">Участие родителей:</label>
+            <input type="text" name="Parental_Involvement" value="{{ request.form['Parental_Involvement'] if request.form.get('Parental_Involvement') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Access_to_Resources">Доступ к ресурсам:</label>
+            <input type="text" name="Access_to_Resources" value="{{ request.form['Access_to_Resources'] if request.form.get('Access_to_Resources') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Extracurricular_Activities">Внеклассные занятия:</label>
+            <input type="text" name="Extracurricular_Activities" value="{{ request.form['Extracurricular_Activities'] if request.form.get('Extracurricular_Activities') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Sleep_Hours">Часы сна:</label>
+            <input type="number" name="Sleep_Hours" value="{{ request.form['Sleep_Hours'] if request.form.get('Sleep_Hours') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Previous_Scores">Предыдущие оценки:</label>
+            <input type="number" name="Previous_Scores" value="{{ request.form['Previous_Scores'] if request.form.get('Previous_Scores') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Motivation_Level">Уровень мотивации:</label>
+            <input type="text" name="Motivation_Level" value="{{ request.form['Motivation_Level'] if request.form.get('Motivation_Level') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Internet_Access">Доступ в интернет:</label>
+            <input type="text" name="Internet_Access" value="{{ request.form['Internet_Access'] if request.form.get('Internet_Access') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Tutoring_Sessions">Занятия с репетитором:</label>
+            <input type="number" name="Tutoring_Sessions" value="{{ request.form['Tutoring_Sessions'] if request.form.get('Tutoring_Sessions') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Family_Income">Доход семьи:</label>
+            <input type="text" name="Family_Income" value="{{ request.form['Family_Income'] if request.form.get('Family_Income') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Teacher_Quality">Качество преподавателя:</label>
+            <input type="text" name="Teacher_Quality" value="{{ request.form['Teacher_Quality'] if request.form.get('Teacher_Quality') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="School_Type">Тип школы:</label>
+            <input type="text" name="School_Type" value="{{ request.form['School_Type'] if request.form.get('School_Type') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Peer_Influence">Влияние сверстников:</label>
+            <input type="text" name="Peer_Influence" value="{{ request.form['Peer_Influence'] if request.form.get('Peer_Influence') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Physical_Activity">Физическая активность:</label>
+            <input type="number" name="Physical_Activity" value="{{ request.form['Physical_Activity'] if request.form.get('Physical_Activity') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Learning_Disabilities">Учебные проблемы:</label>
+            <input type="text" name="Learning_Disabilities" value="{{ request.form['Learning_Disabilities'] if request.form.get('Learning_Disabilities') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Parental_Education_Level">Уровень образования родителей:</label>
+            <input type="text" name="Parental_Education_Level" value="{{ request.form['Parental_Education_Level'] if request.form.get('Parental_Education_Level') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Distance_from_Home">Расстояние от дома:</label>
+            <input type="text" name="Distance_from_Home" value="{{ request.form['Distance_from_Home'] if request.form.get('Distance_from_Home') else '' }}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="Gender">Пол:</label>
+            <select name="Gender" required>
+                <option value="Female" {% if request.form.get('Gender') == 'Female' %}selected{% endif %}>Женский</option>
+                <option value="Male" {% if request.form.get('Gender') == 'Male' %}selected{% endif %}>Мужской</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="submit-btn">Отправить</button>
+        </div>
+    </form>
+
+    {% if prediction_text %}
+    <div class="result">
+        <h2>{{ prediction_text }}</h2>
+    </div>
+    {% endif %}
+</div>
+</body>
+</html>
