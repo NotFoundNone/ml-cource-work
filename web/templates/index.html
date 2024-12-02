@@ -6,10 +6,53 @@
     <title>Предсказание модели</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Основные стили для header */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Основные стили для footer */
+        footer {
+            background-color: #f4f4f9;
+            color: #555;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            border-top: 1px solid #ddd;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Контейнер с отступами для формы */
+        .container {
+            margin-top: 30px;
+        }
+    </style>
 </head>
 <body>
+
+<header>
+    Платформа анализа учебной деятельности
+</header>
+
 <div class="container">
-    <h1>Форма ввода для предсказания модели</h1>
+    <h1>Форма ввода для предсказания оценки ученика</h1>
     <form action="/predict" method="POST">
         <div class="form-group">
             <label for="Hours_Studied">Часы учебы:</label>
@@ -23,17 +66,28 @@
 
         <div class="form-group">
             <label for="Parental_Involvement">Участие родителей:</label>
-            <input type="text" name="Parental_Involvement" value="{{ request.form['Parental_Involvement'] if request.form.get('Parental_Involvement') else '' }}" required>
+            <select name="Parental_Involvement" required>
+                <option value="Low" {% if request.form.get('Parental_Involvement') == 'Low' %}selected{% endif %}>Низкое</option>
+                <option value="Medium" {% if request.form.get('Parental_Involvement') == 'Medium' %}selected{% endif %}>Среднее</option>
+                <option value="High" {% if request.form.get('Parental_Involvement') == 'High' %}selected{% endif %}>Высокое</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="Access_to_Resources">Доступ к ресурсам:</label>
-            <input type="text" name="Access_to_Resources" value="{{ request.form['Access_to_Resources'] if request.form.get('Access_to_Resources') else '' }}" required>
+            <select name="Access_to_Resources" required>
+                <option value="Low" {% if request.form.get('Parental_Involvement') == 'Low' %}selected{% endif %}>Низский</option>
+                <option value="Medium" {% if request.form.get('Parental_Involvement') == 'Medium' %}selected{% endif %}>Средний</option>
+                <option value="High" {% if request.form.get('Parental_Involvement') == 'High' %}selected{% endif %}>Высокий</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="Extracurricular_Activities">Внеклассные занятия:</label>
-            <input type="text" name="Extracurricular_Activities" value="{{ request.form['Extracurricular_Activities'] if request.form.get('Extracurricular_Activities') else '' }}" required>
+            <select name="Extracurricular_Activities" required>
+                <option value="Yes" {% if request.form.get('Extracurricular_Activities') == 'Yes' %}selected{% endif %}>Есть</option>
+                <option value="No" {% if request.form.get('Extracurricular_Activities') == 'No' %}selected{% endif %}>Нет</option>
+            </select>
         </div>
 
         <div class="form-group">
@@ -42,63 +96,96 @@
         </div>
 
         <div class="form-group">
-            <label for="Previous_Scores">Предыдущие оценки:</label>
+            <label for="Previous_Scores">Предыдущая оценка:</label>
             <input type="number" name="Previous_Scores" value="{{ request.form['Previous_Scores'] if request.form.get('Previous_Scores') else '' }}" required>
         </div>
 
         <div class="form-group">
             <label for="Motivation_Level">Уровень мотивации:</label>
-            <input type="text" name="Motivation_Level" value="{{ request.form['Motivation_Level'] if request.form.get('Motivation_Level') else '' }}" required>
+            <select name="Motivation_Level" required>
+                <option value="Low" {% if request.form.get('Motivation_Level') == 'Low' %}selected{% endif %}>Низкий</option>
+                <option value="Medium" {% if request.form.get('Motivation_Level') == 'Medium' %}selected{% endif %}>Средний</option>
+                <option value="High" {% if request.form.get('Motivation_Level') == 'High' %}selected{% endif %}>Высокий</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="Internet_Access">Доступ в интернет:</label>
-            <input type="text" name="Internet_Access" value="{{ request.form['Internet_Access'] if request.form.get('Internet_Access') else '' }}" required>
+            <select name="Internet_Access" required>
+                <option value="No" {% if request.form.get('Internet_Access') == 'No' %}selected{% endif %}>Нет</option>
+                <option value="Yes" {% if request.form.get('Internet_Access') == 'Yes' %}selected{% endif %}>Есть</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="Tutoring_Sessions">Занятия с репетитором:</label>
+            <label for="Tutoring_Sessions">Количество занятий с репетитором:</label>
             <input type="number" name="Tutoring_Sessions" value="{{ request.form['Tutoring_Sessions'] if request.form.get('Tutoring_Sessions') else '' }}" required>
         </div>
 
         <div class="form-group">
             <label for="Family_Income">Доход семьи:</label>
-            <input type="text" name="Family_Income" value="{{ request.form['Family_Income'] if request.form.get('Family_Income') else '' }}" required>
+            <select name="Family_Income" required>
+                <option value="Low" {% if request.form.get('Family_Income') == 'Low' %}selected{% endif %}>Низкий</option>
+                <option value="Medium" {% if request.form.get('Family_Income') == 'Medium' %}selected{% endif %}>Средний</option>
+                <option value="High" {% if request.form.get('Family_Income') == 'High' %}selected{% endif %}>Высокий</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="Teacher_Quality">Качество преподавателя:</label>
-            <input type="text" name="Teacher_Quality" value="{{ request.form['Teacher_Quality'] if request.form.get('Teacher_Quality') else '' }}" required>
+            <label for="Teacher_Quality">Качество материала преподавателя:</label>
+            <select name="Teacher_Quality" required>
+                <option value="Low" {% if request.form.get('Teacher_Quality') == 'Low' %}selected{% endif %}>Низкое</option>
+                <option value="Medium" {% if request.form.get('Teacher_Quality') == 'Medium' %}selected{% endif %}>Среднее</option>
+                <option value="High" {% if request.form.get('Teacher_Quality') == 'High' %}selected{% endif %}>Высокое</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="School_Type">Тип школы:</label>
-            <input type="text" name="School_Type" value="{{ request.form['School_Type'] if request.form.get('School_Type') else '' }}" required>
+            <select name="School_Type" required>
+                <option value="Public" {% if request.form.get('School_Type') == 'Public' %}selected{% endif %}>Государственная</option>
+                <option value="Private" {% if request.form.get('School_Type') == 'Private' %}selected{% endif %}>Частная</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="Peer_Influence">Влияние сверстников:</label>
-            <input type="text" name="Peer_Influence" value="{{ request.form['Peer_Influence'] if request.form.get('Peer_Influence') else '' }}" required>
+            <select name="Peer_Influence" required>
+                <option value="Low" {% if request.form.get('Peer_Influence') == 'Low' %}selected{% endif %}>Низкое</option>
+                <option value="Medium" {% if request.form.get('Peer_Influence') == 'Medium' %}selected{% endif %}>Среднее</option>
+                <option value="High" {% if request.form.get('Peer_Influence') == 'High' %}selected{% endif %}>Высокое</option>
+            </select>
         </div>
 
         <div class="form-group">
-            <label for="Physical_Activity">Физическая активность:</label>
+            <label for="Physical_Activity">Количество занятий в неделю (физическая активность):</label>
             <input type="number" name="Physical_Activity" value="{{ request.form['Physical_Activity'] if request.form.get('Physical_Activity') else '' }}" required>
         </div>
 
         <div class="form-group">
             <label for="Learning_Disabilities">Учебные проблемы:</label>
-            <input type="text" name="Learning_Disabilities" value="{{ request.form['Learning_Disabilities'] if request.form.get('Learning_Disabilities') else '' }}" required>
+            <select name="Learning_Disabilities" required>
+                <option value="No" {% if request.form.get('Learning_Disabilities') == 'No' %}selected{% endif %}>Нет</option>
+                <option value="Yes" {% if request.form.get('Learning_Disabilities') == 'Yes' %}selected{% endif %}>Есть</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="Parental_Education_Level">Уровень образования родителей:</label>
-            <input type="text" name="Parental_Education_Level" value="{{ request.form['Parental_Education_Level'] if request.form.get('Parental_Education_Level') else '' }}" required>
+            <select name="Parental_Education_Level" required>
+                <option value="High School" {% if request.form.get('Parental_Education_Level') == 'High School' %}selected{% endif %}>Среднее образование</option>
+                <option value="College" {% if request.form.get('Parental_Education_Level') == 'College' %}selected{% endif %}>Высшее образование</option>
+                <option value="Postgraduate" {% if request.form.get('Parental_Education_Level') == 'Postgraduate' %}selected{% endif %}>Академическая степень</option>
+            </select>
         </div>
 
         <div class="form-group">
             <label for="Distance_from_Home">Расстояние от дома:</label>
-            <input type="text" name="Distance_from_Home" value="{{ request.form['Distance_from_Home'] if request.form.get('Distance_from_Home') else '' }}" required>
+            <select name="Distance_from_Home" required>
+                <option value="Near" {% if request.form.get('Distance_from_Home') == 'Near' %}selected{% endif %}>Близко</option>
+                <option value="Moderate" {% if request.form.get('Distance_from_Home') == 'Moderate' %}selected{% endif %}>Умеренно</option>
+                <option value="Far" {% if request.form.get('Distance_from_Home') == 'Far' %}selected{% endif %}>Далеко</option>
+            </select>
         </div>
 
         <div class="form-group">
@@ -113,12 +200,16 @@
             <button type="submit" class="submit-btn">Отправить</button>
         </div>
     </form>
-
     {% if prediction_text %}
     <div class="result">
         <h2>{{ prediction_text }}</h2>
     </div>
     {% endif %}
 </div>
+
+<footer>
+    © 2024 Платформа анализа учебной деятельности. <a href="https://example.com" target="_blank">Политика конфиденциальности</a>.
+</footer>
+
 </body>
 </html>

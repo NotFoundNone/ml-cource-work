@@ -107,11 +107,13 @@ def predict():
 
         X_student = np.c_[np.ones(standardized_values_2d.shape[0]), standardized_values_2d]
 
-        theta = np.loadtxt('../normalize/data/theta/theta_analytic.csv', delimiter=',')
+        theta = np.loadtxt('../normalize/data/theta/optimized_theta.csv', delimiter=',')
 
         prediction = np.dot(X_student, theta)
 
-        return render_template('index.html', prediction_text=f'Prediction: {prediction[0]}')
+        prediction = max(0, min(prediction[0], 100))
+
+        return render_template('index.html', prediction_text=f'Предполагаемая оценка: {prediction}')
     except Exception as e:
         return str(e)
 

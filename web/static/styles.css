@@ -37,20 +37,45 @@ label {
     color: #555;
 }
 
+/* Убедимся, что box-sizing применяется ко всем элементам */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/* Контейнер для формы */
+.container {
+    width: 80%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Чтобы предотвратить выход элементов за пределы контейнера */
+}
+
+/* Стили для полей формы */
 input[type="text"],
-input[type="number"] {
-    width: 100%;
+input[type="number"],
+select {
+    width: 100%; /* Обеспечивает адаптивность */
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
+    box-sizing: border-box; /* Учитываем padding и border в общей ширине */
 }
 
+/* Стили для фокуса */
 input[type="text"]:focus,
-input[type="number"]:focus {
+input[type="number"]:focus,
+select:focus {
     border-color: #007bff;
     outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
 
 /* Кнопка отправки */
@@ -83,4 +108,38 @@ input[type="number"]:focus {
     margin: 0;
     font-size: 22px;
     color: #333;
+}
+
+/* Стили для селектов */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #555;
+    cursor: pointer;
+}
+
+/* Стили для селекта при фокусе */
+select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Стиль для опций внутри селекта */
+select option {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* Улучшение внешнего вида селекта для мобильных устройств */
+@media (max-width: 767px) {
+    select {
+        font-size: 14px;
+        padding: 8px;
+    }
 }
