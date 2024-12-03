@@ -113,6 +113,8 @@ def predict():
 
         prediction = max(0, min(prediction[0], 100))
 
+        print("prediction:", prediction)
+
         return render_template('index.html', prediction_text=f'Предполагаемая оценка: {prediction}')
     except Exception as e:
         return str(e)

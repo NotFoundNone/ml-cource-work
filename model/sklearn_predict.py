@@ -26,7 +26,7 @@ categorical_transformer = SimpleImputer(strategy='most_frequent')
 # Кодирование категориальных признаков (One-Hot Encoding)
 categorical_pipeline = Pipeline(steps=[
     ('imputer', categorical_transformer),
-    ('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))  # исправлено на sparse_output
+    ('onehot', OneHotEncoder(handle_unknown='ignore', sparse_output=False))
 ])
 
 # Нормализация и стандартизация для числовых признаков
