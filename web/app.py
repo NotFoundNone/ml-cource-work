@@ -10,7 +10,7 @@ def standardize_value(value, mean, std):
     return (value - mean) / std
 
 def load_mean_std_values():
-    mean_std_df = pd.read_csv('../normalize/data/util/mean_std_values.csv')
+    mean_std_df = pd.read_csv('../normalize/data/util/train_mean_std_values.csv')
     mean_std_df.columns = mean_std_df.columns.str.strip().str.lower().str.replace(' ', '_')
     mean_values = mean_std_df.set_index('parameter')['mean'].to_dict()
     std_values = mean_std_df.set_index('parameter')['std'].to_dict()

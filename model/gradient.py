@@ -3,7 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Пример загрузки датасета (замените на свой путь)
-data = pd.read_csv('../normalize/data/normalized_student_performance.csv')
+data = pd.read_csv('../normalize/data/training/train_normalized_student_performance.csv')
 
 # Разделим данные на признаки и целевую переменную
 X = data.drop('Exam_Score', axis=1).values  # Признаки (X)

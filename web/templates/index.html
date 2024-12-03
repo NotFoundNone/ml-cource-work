@@ -77,7 +77,7 @@
         <div class="form-group">
             <label for="Access_to_Resources">Доступ к ресурсам:</label>
             <select name="Access_to_Resources" required>
-                <option value="Low" {% if request.form.get('Parental_Involvement') == 'Low' %}selected{% endif %}>Низский</option>
+                <option value="Low" {% if request.form.get('Parental_Involvement') == 'Low' %}selected{% endif %}>Низкий</option>
                 <option value="Medium" {% if request.form.get('Parental_Involvement') == 'Medium' %}selected{% endif %}>Средний</option>
                 <option value="High" {% if request.form.get('Parental_Involvement') == 'High' %}selected{% endif %}>Высокий</option>
             </select>
@@ -152,9 +152,9 @@
         <div class="form-group">
             <label for="Peer_Influence">Влияние сверстников:</label>
             <select name="Peer_Influence" required>
-                <option value="Low" {% if request.form.get('Peer_Influence') == 'Low' %}selected{% endif %}>Низкое</option>
-                <option value="Medium" {% if request.form.get('Peer_Influence') == 'Medium' %}selected{% endif %}>Среднее</option>
-                <option value="High" {% if request.form.get('Peer_Influence') == 'High' %}selected{% endif %}>Высокое</option>
+                <option value="Negative" {% if request.form.get('Peer_Influence') == 'Negative' %}selected{% endif %}>Негативное</option>
+                <option value="Neutral" {% if request.form.get('Peer_Influence') == 'Neutral' %}selected{% endif %}>Нейтральное</option>
+                <option value="Positive" {% if request.form.get('Peer_Influence') == 'Positive' %}selected{% endif %}>Позитивное</option>
             </select>
         </div>
 

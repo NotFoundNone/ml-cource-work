@@ -22,8 +22,10 @@ def normalization_func(df, exclude_columns=None):
 
     return df, mean_std_values
 
+# #Для обучающей выборки
+#
 # # Чтение данных
-# data = pd.read_csv('./data/standartized_student_performance.csv')
+# data = pd.read_csv('./data/training/train_standartized_student_performance.csv')
 #
 # # Столбец, который не должен быть стандартизован
 # exclude_columns = ['Exam_Score']
@@ -32,7 +34,7 @@ def normalization_func(df, exclude_columns=None):
 # standardized_data, mean_std_values = normalization_func(data.copy(), exclude_columns=exclude_columns)
 #
 # # Сохранение стандартизированных данных в новый файл
-# standardized_data.to_csv("./data/normalized_student_performance.csv", index=False)
+# standardized_data.to_csv("./data/training/train_normalized_student_performance.csv", index=False)
 #
 # # Сохранение средних значений и стандартных отклонений для каждого признака
 # mean_std_df = pd.DataFrame(mean_std_values).T
@@ -42,7 +44,31 @@ def normalization_func(df, exclude_columns=None):
 # mean_std_df.rename(columns={'index': 'parameter'}, inplace=True)
 #
 # # Сохранение значений среднего и стандартного отклонения
-# mean_std_df.to_csv('./data/util/mean_std_values.csv', index=False)
+# mean_std_df.to_csv('./data/util/train_mean_std_values.csv', index=False)
+#
+# #Для тестовой выборки
+#
+# # Чтение данных
+# data = pd.read_csv('./data/test/test_standartized_student_performance.csv')
+#
+# # Столбец, который не должен быть стандартизован
+# exclude_columns = ['Exam_Score']
+#
+# # Стандартизация данных
+# standardized_data, mean_std_values = normalization_func(data.copy(), exclude_columns=exclude_columns)
+#
+# # Сохранение стандартизированных данных в новый файл
+# standardized_data.to_csv("./data/test/test_normalized_student_performance.csv", index=False)
+#
+# # Сохранение средних значений и стандартных отклонений для каждого признака
+# mean_std_df = pd.DataFrame(mean_std_values).T
+#
+# # Добавляем индекс как отдельный столбец, чтобы он записался в файл
+# mean_std_df.reset_index(inplace=True)
+# mean_std_df.rename(columns={'index': 'parameter'}, inplace=True)
+#
+# # Сохранение значений среднего и стандартного отклонения
+# mean_std_df.to_csv('./data/util/test_mean_std_values.csv', index=False)
 
 
 # import pandas as pd
