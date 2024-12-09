@@ -1,15 +1,15 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-# Загружаем данные в pandas DataFrame (предположим, что ваши данные сохранены в CSV)
+# Загружаем данные в DataFrame
 data = pd.read_csv('StudentPerformanceFactorsShuffle.csv')
 
-# Определяем признаки (features) и целевую переменную (target)
+# Определяем признаки и целевую переменную
 X = data.drop(columns=['Exam_Score'])  # Все колонки, кроме целевой переменной
 y = data['Exam_Score']  # Целевая переменная
 
-# Разделяем на обучающую и тестовую выборки (80% для обучения, 20% для теста)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Разделяем на обучающую и тестовую выборки (70% для обучения, 30% для теста)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
 # Объединяем обучающую выборку (X_train и y_train) в один DataFrame
 train_data = X_train.copy()

@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import time
 
 # Пример загрузки датасета (замените на свой путь)
 data = pd.read_csv('../normalize/data/training/train_normalized_student_performance.csv')
@@ -22,7 +23,6 @@ theta = np.zeros(X.shape[1])
 # Функция для предсказания
 def predict(X, theta):
     return np.dot(X, theta)
-
 
 # Функция для вычисления средней квадратичной ошибки (MSE)
 def compute_cost(X, y, theta):
@@ -51,7 +51,7 @@ def gradient_descent(X, y, theta, alpha, iterations):
 
         # Вычисление стоимости для отслеживания
         cost_history.append(compute_cost(X, y, theta))
-        if i % 100 == 0:  # Отображать каждую сотую итерацию
+        if i % 100 == 0: # Логируем каждую сотую итерацию
             print(f"Итерация {i}, Стоимость: {cost_history[-1]}")
 
     return theta, cost_history
@@ -63,12 +63,12 @@ iterations = 1000  # Количество итераций
 # Словарь для хранения стоимости для разных alpha
 costs = {}
 
+start_train = time.time()
 # Протестируем каждое значение alpha
 for alpha in alphas:
     theta = np.zeros(X.shape[1])  # Инициализация параметров
     optimized_theta, cost_history = gradient_descent(X, y, theta, alpha, iterations)
 
-    # Проверяем, что количество точек для графика корректно
     if len(cost_history) == iterations:
         costs[alpha] = cost_history
 
@@ -76,6 +76,12 @@ for alpha in alphas:
         plt.plot(range(1, iterations + 1), cost_history, label=f'alpha={alpha}')
     else:
         print(f"Прерывание на alpha={alpha} из-за больших градиентов.")
+
+end_train = time.time()
+
+train_time = end_train - start_train
+
+print("train time: ", train_time)
 
 np.savetxt('../normalize/data/theta/optimized_theta.csv', optimized_theta, delimiter=',', comments='')
 

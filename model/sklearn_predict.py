@@ -1,3 +1,5 @@
+import time
+
 import pandas as pd
 from sklearn.compose import ColumnTransformer
 from sklearn.ensemble import RandomForestRegressor
@@ -51,8 +53,14 @@ model = Pipeline(steps=[
     ('regressor', RandomForestRegressor(n_estimators=100, random_state=42))
 ])
 
+start_train = time.time()
 # Обучение модели
 model.fit(X_train, y_train)
+end_train = time.time()
+
+train_time = end_train - start_train
+
+print("train time: ", train_time)
 
 # Прогнозирование
 y_pred = model.predict(X_test)

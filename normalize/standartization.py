@@ -21,10 +21,10 @@ def transform_categories(data, mappings):
             if val == '' or val is None:  # Обработка пустых строк или значений
                 transformed_row.append(0)  # Можно заменить на 0 или другое значение по умолчанию
             elif val in mappings:
-                transformed_row.append(mappings[val])  # Преобразуем категориальные данные
+                transformed_row.append(mappings[val])  # Преобразование категориальные данные
             else:
                 try:
-                    transformed_row.append(float(val))  # Преобразуем в число
+                    transformed_row.append(float(val))  # Преобразование в число
                 except ValueError:
                     transformed_row.append(0)  # Для любых ошибок преобразования можно задать значение по умолчанию
         transformed_data.append(transformed_row)

@@ -2,7 +2,7 @@ import random
 
 import pandas as pd
 
-# Загружаем CSV файл в DataFrame с помощью pandas
+# Загружаем CSV файл в DataFrame
 encoded_df = pd.read_csv('StudentPerformanceFactors.csv')
 
 # Функция для перемешивания строк DataFrame с помощью алгоритма Фишера-Йетса

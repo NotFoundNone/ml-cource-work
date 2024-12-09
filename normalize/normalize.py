@@ -8,7 +8,6 @@ def normalization_func(df, exclude_columns=None):
     # Словарь для хранения средних значений и стандартных отклонений
     mean_std_values = {}
 
-    # Применение стандартизации ко всем столбцам, кроме исключенных
     for column in df.columns:
         if column not in exclude_columns:
             mean_val = df[column].mean()  # Среднее значение
